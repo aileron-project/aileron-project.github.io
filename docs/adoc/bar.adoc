@@ -1,0 +1,11 @@
+
+= My book
+// :stem: asciimath
+
+
+
+// :math:
+// :mathjax:
+// :stem: latexmath
+
+include::./bar/basic.adoc[]

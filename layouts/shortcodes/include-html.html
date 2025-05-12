@@ -1,0 +1,6 @@
+<div id="asciidoc-html-document" style="border-top: 5px solid #00196e; margin: 20px 0px; padding: 20px 0px;"></div>
+<script>
+  const shadowHost = document.getElementById('asciidoc-html-document');
+  const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+  shadowRoot.innerHTML = `{{ readFile (.Get "file") | safeHTML }}`;
+</script>

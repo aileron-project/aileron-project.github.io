@@ -1,0 +1,25 @@
+.navbar-brand {
+  svg {
+    width: auto;
+  }
+}
+
+#td-cover-block-0{
+  background-color: transparent;
+  // background-image:  url("/bg-k.svg");
+}
+
+#home-title{
+  font-family: sans-serif;
+  font-weight: 900;
+  // font-style: italic;
+}
+
+#home-background {
+  margin-right: calc(-.5* var(--bs-gutter-x));
+  margin-left: calc(-.5* var(--bs-gutter-x));
+  background: radial-gradient(#00196e,#000516);
+  overflow: hidden;
+}
+
+.td-page-meta__child { display: none; }

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>My book</title>
+<date>2025-03-22</date>
+</info>
+<section xml:id="_hello_asciidoc">
+<title>Hello, AsciiDoc!</title>
+<informaltable frame="all" rowsep="1" colsep="1">
+<?dbhtml table-width="25%"?>
+<?dbfo table-width="25%"?>
+<?dblatex table-width="25%"?>
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="26.5625*"/>
+<colspec colname="col_2" colwidth="26.5625*"/>
+<colspec colname="col_3" colwidth="26.5625*"/>
+<colspec colname="col_4" colwidth="26.5625*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>1</emphasis></simpara></entry>
+<entry align="right" valign="top"><simpara><emphasis role="strong">2</emphasis></simpara></entry>
+<entry align="center" valign="top"><simpara>3</simpara></entry>
+<entry align="right" valign="top"><simpara><emphasis role="strong">4</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara><emphasis>5</emphasis></simpara></entry>
+<entry align="center" valign="middle" namest="col_2" nameend="col_3" morerows="1"><simpara><literal>6</literal></simpara></entry>
+<entry align="left" valign="bottom" morerows="2"><simpara><literal>7</literal></simpara></entry>
+</row>
+<row>
+<entry align="center" valign="top"><simpara><emphasis>8</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara><emphasis>9</emphasis></simpara></entry>
+<entry align="right" valign="top" namest="col_2" nameend="col_3"><simpara><literal>10</literal></simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>This is an interactive editor.
+Use it to try <link xl:href="https://asciidoc.org">AsciiDoc</link>.</simpara>
+<simpara role="left text-center"><inlinemediaobject>
+<imageobject>
+<imagedata fileref="images/github-mark.png"/>
+</imageobject>
+<textobject><phrase>github mark</phrase></textobject>
+</inlinemediaobject></simpara>
+</section>
+<section xml:id="_section_title">
+<title>Section Title</title>
+<itemizedlist>
+<listitem>
+<simpara>A list item</simpara>
+</listitem>
+<listitem>
+<simpara>Another list item</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="ruby" linenumbering="unnumbered">puts 'Hello, World!'</programlisting>
+<literallayout class="monospaced">sequenceDiagram
+  participant Alice
+  participant Bob
+  Alice-&gt;&gt;Bob: Hello Bob, how are you?
+  Bob--&gt;&gt;Alice: Great!</literallayout>
+<literallayout class="monospaced">classDiagram
+  BaseClass |&gt;-- Server
+  BaseClass |&gt;-- Client
+  BaseClass |&gt;-- Util</literallayout>
+<literallayout class="monospaced">class Animal {
+  run()
+}
+
+class Cat extends Animal {
+}</literallayout>
+<literallayout class="monospaced">digraph mygraph {
+  fontname="Helvetica,Arial,sans-serif"
+  node [fontname="Helvetica,Arial,sans-serif"]
+  edge [fontname="Helvetica,Arial,sans-serif"]
+  node [shape=box];
+  "//absl/random:random"
+  "//absl/random:random" -&gt; "//absl/random:distributions"
+  "//absl/random:random" -&gt; "//absl/random:seed_sequences"
+  "//absl/random:random" -&gt; "//absl/random/internal:pool_urbg"
+  "//absl/random:random" -&gt; "//absl/random/internal:nonsecure_base"
+  "//absl/random:distributions"
+  "//absl/random:distributions" -&gt; "//absl/strings:strings"
+  "//absl/random:seed_sequences"
+  "//absl/random:seed_sequences" -&gt; "//absl/random/internal:seed_material"
+  "//absl/random:seed_sequences" -&gt; "//absl/random/internal:salted_seed_seq"
+  "//absl/random:seed_sequences" -&gt; "//absl/random/internal:pool_urbg"
+  "//absl/random:seed_sequences" -&gt; "//absl/random/internal:nonsecure_base"
+  "//absl/random/internal:nonsecure_base"
+  "//absl/random/internal:nonsecure_base" -&gt; "//absl/random/internal:pool_urbg"
+  "//absl/random/internal:nonsecure_base" -&gt; "//absl/random/internal:salted_seed_seq"
+  "//absl/random/internal:nonsecure_base" -&gt; "//absl/random/internal:seed_material"
+  "//absl/random/internal:pool_urbg"
+  "//absl/random/internal:pool_urbg" -&gt; "//absl/random/internal:seed_material"
+  "//absl/random/internal:salted_seed_seq"
+  "//absl/random/internal:salted_seed_seq" -&gt; "//absl/random/internal:seed_material"
+  "//absl/random/internal:seed_material"
+  "//absl/random/internal:seed_material" -&gt; "//absl/strings:strings"
+  "//absl/strings:strings"
+}</literallayout>
+</section>
+<section xml:id="_equations_in_normal_blocks">
+<title>Equations in normal blocks</title>
+<informalequation>
+<alt><![CDATA[k_{n+1} = n^2 + k_n^2 - k_{n-1}]]></alt>
+<mathphrase><![CDATA[k_{n+1} = n^2 + k_n^2 - k_{n-1}]]></mathphrase>
+</informalequation>
+<simpara>Some useful text! Formula for quadratic root:</simpara>
+<informalequation>
+<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:mi>x</mml:mi><mml:mo>=</mml:mo><mml:mo>\</mml:mo><mml:mfrac><mml:mrow><mml:mo>&#x2212;</mml:mo><mml:mi>b</mml:mi><mml:mo>\</mml:mo><mml:mo>&#xB1;</mml:mo><mml:mo>\</mml:mo><mml:msqrt><mml:mrow><mml:msup><mml:mi>b</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>&#x2212;</mml:mo><mml:mn>4</mml:mn><mml:mi>a</mml:mi><mml:mi>c</mml:mi></mml:mrow></mml:msqrt></mml:mrow><mml:mrow><mml:mn>2</mml:mn><mml:mi>a</mml:mi></mml:mrow></mml:mfrac></mml:math>
+</informalequation>
+<simpara>Inline equation works too! <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>. Or as stem
+<inlineequation><mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup><mml:mi>a</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mi>b</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>=</mml:mo><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup></mml:math></inlineequation>. Pretty nice, huh?</simpara>
+</section>
+<section xml:id="_equations_in_table_cells">
+<title>Equations in table cells</title>
+<simpara>Equations in asciidoc style table cells work, too!</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Demo</entry>
+<entry align="left" valign="top">Contents</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Asciidoc</emphasis> Cells</simpara></entry>
+<entry align="left" valign="top"><simpara>This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Block Equation in <emphasis role="strong">Asciidoc</emphasis> Cells</simpara></entry>
+<entry align="left" valign="top"><simpara>The following is a stem block:</simpara>
+<informalequation>
+<mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup><mml:mi>a</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mi>b</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>=</mml:mo><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mi>d</mml:mi><mml:mn>2</mml:mn></mml:msup></mml:math>
+</informalequation></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Normal</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara>This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Header</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Emphasis</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis>This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Monospaced</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara><literal>This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</literal></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Strong</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong">This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Verse</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><simpara>This is an <emphasis role="strong">inline</emphasis> equation: <inlineequation><alt><![CDATA[a^2+b^2=c^2]]></alt><mathphrase><![CDATA[a^2+b^2=c^2]]></mathphrase></inlineequation>.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>Inline Equation in <emphasis role="strong">Literal</emphasis> Cell</simpara></entry>
+<entry align="left" valign="top"><literallayout class="monospaced"> This is an *inline* equation: latexmath:[a^2+b^2=c^2].</literallayout></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_equations_in_section_titles">
+<title>Equations in section titles</title>
+<section xml:id="_proof_of_a2b2c2">
+<title>Proof of <inlineequation><mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup><mml:mi>a</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mi>b</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>=</mml:mo><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup></mml:math></inlineequation></title>
+<section xml:id="_proof_of_a2b2c2_2">
+<title>Proof of <inlineequation><mml:math xmlns:mml="http://www.w3.org/1998/Math/MathML"><mml:msup><mml:mi>a</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>+</mml:mo><mml:msup><mml:mi>b</mml:mi><mml:mn>2</mml:mn></mml:msup><mml:mo>=</mml:mo><mml:msup><mml:mi>c</mml:mi><mml:mn>2</mml:mn></mml:msup></mml:math></inlineequation></title>
+
+</section>
+</section>
+</section>
+</article>
