@@ -16,9 +16,6 @@ description: A Hugo theme for creating great technical documentation sites
 <a class="btn btn-lg btn-secondary me-3" href="/docs/">
 Learn More<i class="fas fa-arrow-alt-circle-right ms-2"></i>
 </a>
-<a class="btn btn-lg btn-secondary me-3" href="https://github.com/aileron-project/aileron/releases">
-Download<i class="fab fa-github ms-2"></i>
-</a>
 
 {{< /blocks/cover >}}
 </div>
