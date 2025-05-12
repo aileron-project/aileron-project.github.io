@@ -3,6 +3,3 @@ path = themes/docsy
 url = https://github.com/google/docsy.git
 branch = main
 ignore = dirty
-[submodule "docsy"]
-	path = docsy
-	url = https://github.com/google/docsy.git
