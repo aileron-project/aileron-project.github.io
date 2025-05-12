@@ -81,7 +81,6 @@ params:
         url: https://stackoverflow.com/questions/tagged/aileron-project
         icon: fab fa-stack-overflow
         desc: Practical questions and curated answers.
-  version: master
   version_menu: Projects
   versions:
     - version: aileron-foo
