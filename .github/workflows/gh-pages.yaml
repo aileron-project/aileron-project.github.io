@@ -78,6 +78,8 @@ jobs:
           sudo snap install dart-sass
       - name: install npm packages
         run: |
+          ls -la
+          ls themes/
           # Install required https://www.docsy.dev/docs/get-started/docsy-as-module/installation-prerequisites/.
           # npm install --save-dev autoprefixer
           # npm install --save-dev postcss-cli
