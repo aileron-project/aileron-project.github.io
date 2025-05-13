@@ -54,10 +54,10 @@ jobs:
       - run: |
           sudo chmod +x ./test.sh
           PROJECT="${{ matrix.project }}" ./test.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact/merge@v4
         with:
           name: ${{ matrix.project }}
-          path: ./static/${{ matrix.project }}/
+          path: ./**/static/${{ matrix.project }}/
 
   hugo:
     runs-on: ubuntu-latest
