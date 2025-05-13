@@ -57,7 +57,7 @@ jobs:
       - uses: actions/upload-artifact/merge@v4
         with:
           name: ${{ matrix.project }}
-          path: ./**/${{ matrix.project }}/
+          pattern: ./**/${{ matrix.project }}/
 
   hugo:
     runs-on: ubuntu-latest
