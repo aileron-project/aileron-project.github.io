@@ -26,8 +26,6 @@ jobs:
         project: ["aileron-foo"]
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
       - run: |
           sudo apt -y update
           sudo apt -y install \
