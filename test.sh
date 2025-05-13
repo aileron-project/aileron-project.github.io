@@ -1,32 +1,31 @@
 #! /bin/bash
 
-export PROJECT=foobar
-REPOS+=https://github.com/aileron-project/aileron-project.git
-PATTERNS+=("^v[0-9]+.[0-9]+.[0-9]+$")
-PATTERNS+=("^v[0-9]+.[0-9]+.[0-9]+-alpha$")
-OTHERS+=()
-# FILES=$(find ./docs/ -maxdepth 2 -mindepth 2 -type f -name '*.adoc' 2>/dev/null)
+# PROJECT="aileron-test"
+git clone "https://github.com/aileron-project/${PROJECT}.git"
+TAGS=$(cd "${PROJECT}" && git tag)
 
-# git clone https://github.com/aileron-project/aileron-project.git
-# cd aileron-project
-TAGS=$(git tag)
+PATTERNS=()
+TARGETS=()
 
 echo "${TAGS}" | while read -r line; do
+  if [[ "${line}" =~ ^v[0-9]+.[0-9]+.[0-9]+$ ]]; then
+    echo "TARGET: ${line}"
+    TARGETS+=("${line}")
+    break
+  fi
   for pattern in "${PATTERNS[@]}"; do
     echo "${line}" "<>" "${pattern}"
     if [[ "${line}" =~ ${pattern} ]]; then
-      echo "${line}" >>"${PROJECT}.list"
-      break
-    fi
-  done
-  for other in "${OTHERS[@]}"; do
-    echo "${line}" "<>" "${other}"
-    if [[ "${line}" =~ ${other} ]]; then
-      echo "${line}" >>"${PROJECT}.list"
-      break
+      echo "TARGET: ${line}"
+      TARGETS+=("${line}")
     fi
   done
 done
 
-# gem install asciidoctor
-# gem install coderay
+for target in "${TARGETS[@]}"; do
+  _="$(cd ${PROJECT} && git checkout ${target})"
+  PRJ="${PROJECT}"
+  TAG="${target}"
+  DATE="$(cd ${PROJECT} && git for-each-ref --format="%(taggerdate:short)" refs/tags/${target})"
+  make build PRJ="${PRJ}" TAG="${TAG}" DATE="${DATE}"
+done

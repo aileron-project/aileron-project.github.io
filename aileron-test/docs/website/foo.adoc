@@ -7,7 +7,6 @@
 :sectlinks:
 :sectanchors:
 :compress:
-:imagesoutdir: tmp/
 
 include::foo/text.adoc[]
 include::foo/math.adoc[]
