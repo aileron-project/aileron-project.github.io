@@ -80,12 +80,17 @@ jobs:
         run: |
           ls -la
           ls themes/
+          ls themes/docsy/
           # Install required https://www.docsy.dev/docs/get-started/docsy-as-module/installation-prerequisites/.
           # npm install --save-dev autoprefixer
           # npm install --save-dev postcss-cli
           # npm install --save-dev postcss
           npm install
           cd themes/docsy/ && git fetch --tags && git checkout tags/${DOCSY_VERSION}
+
+          ls -la
+          ls themes/
+          ls themes/docsy/
           cd themes/docsy/ && npm install
       - name: Build with Hugo
         env:
