@@ -57,11 +57,20 @@ jobs:
       - uses: actions/upload-artifact/merge@v4
         with:
           name: ${{ matrix.project }}
-          pattern: ./**/${{ matrix.project }}/
+          path: |
+            ./content/${{ matrix.project }}/
+            ./static/${{ matrix.project }}/
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
 
   hugo:
     runs-on: ubuntu-latest
-    needs: build
+    needs: merge
     steps:
       - uses: actions/checkout@v4
         with:
