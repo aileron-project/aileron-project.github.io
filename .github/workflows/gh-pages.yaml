@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  HUGO_VERSION: 0.147.3 # https://github.com/google/docsy/blob/main/package.json
-  DOCSY_VERSION: v0.11.0
+  HUGO_VERSION: "0.147.3" # https://github.com/google/docsy/blob/main/package.json
+  DOCSY_VERSION: "v0.11.0"
 
 jobs:
   build:
@@ -82,7 +82,7 @@ jobs:
           # npm install --save-dev postcss-cli
           # npm install --save-dev postcss
           npm install
-          cd themes/docsy/ && git fetch --tags && git checkout tags/$(DOCSY_VERSION)
+          cd themes/docsy/ && git fetch --tags && git checkout tags/${DOCSY_VERSION}
           cd themes/docsy/ && npm install
       - name: Build with Hugo
         env:
