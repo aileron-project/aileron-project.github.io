@@ -1,0 +1,14 @@
+<!-- 
+Work in progress.
+Currently this code breaks styles.
+assets/scss/_style_project.scss
+
+See also https://docs.asciidoctor.org/asciidoctor/latest/html-backend/default-stylesheet/
+
+.asciidoc-html {
+  @import url("https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css");
+}
+
+-->
+
+<div css="asciidoc-html">{{ readFile (.Get "file") | safeHTML }}</div>

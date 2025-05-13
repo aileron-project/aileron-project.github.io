@@ -14,13 +14,14 @@ PRJ ?= aileron-test
 TAG ?= v0.0.1
 DATE ?= 2025-05-13
 
+# Resource directories.
 STATIC_DIR := static/$(PRJ)/$(TAG)/
 CONTENT_DIR := content/$(PRJ)/$(TAG)/
 WEBSITE_DIR := $(PRJ)/docs/website/
 
+# Generate file paths.
 WD_MDS := $(shell find $(WEBSITE_DIR) -maxdepth 1 -type f -name '*.md' 2>/dev/null)
 CD_MDS := $(patsubst $(WEBSITE_DIR)%,$(CONTENT_DIR)%,$(WD_MDS))
-
 WD_ADOCS := $(shell find $(WEBSITE_DIR) -maxdepth 1 -type f -name '*.adoc' 2>/dev/null)
 WD_HTMLS := $(WD_ADOCS:.adoc=.html)
 WD_PDFS := $(WD_ADOCS:.adoc=.pdf)
@@ -31,16 +32,18 @@ SD_PDFS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_PDFS))
 SD_EPUBS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_EPUBS))
 CD_ADOCS := $(patsubst $(WEBSITE_DIR)%,$(CONTENT_DIR)%,$(WD_ADOCS))
 CD_GEN_MDS := $(CD_ADOCS:.adoc=.md)
+EMBED_HTMLS := $(SD_HTMLS:.html=.embed.html)
 
+# Asciidoctor build options.
+# --attribute options.
 ADOC_OPTION ?=
 ADOC_ATTRS += experimental reproducible data-uri stem=asciimath toc=none sectnums doctype=book source-highlighter=highlightjs
 ADOC_ATTRS += imagesoutdir=_output/tmp/
 ADOC_ATTRS += cachedir=_output/.asciidoctor/
 ADOC_ATTRS += diagram-cachedir=_output/.asciidoctor/
-# ADOC_ATTRS += stylesheet=/scss/main.css linkcss
 ADOC_ATTRS := $(addprefix --attribute=,$(ADOC_ATTRS))
 # ADOC_EPUB_REQS ?= asciidoctor-diagram asciidoctor-lists asciidoctor-mathematical
-
+# --require options.
 ADOC_REQS ?= asciidoctor-diagram asciidoctor-lists asciidoctor-mathematical
 ADOC_REQS := $(addprefix --require=,$(ADOC_REQS))
 
@@ -54,8 +57,10 @@ clear:
 	rm -rf $(CONTENT_DIR)
 	rm -rf $(STATIC_DIR)
 
+.DEFAULT_GOAL:=build
 .PHONY: build
-build: init $(CD_GEN_MDS) $(SD_HTMLS) $(SD_PDFS) $(SD_EPUBS) $(CD_MDS)
+build: init $(CD_GEN_MDS) $(EMBED_HTMLS) $(SD_HTMLS) $(SD_PDFS) $(SD_EPUBS) $(CD_MDS)
+	@echo "\n"
 	rm -rf $(STATIC_DIR)images $(CONTENT_DIR)_index.*.md
 	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.en.md
 	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.ja.md
@@ -64,7 +69,7 @@ build: init $(CD_GEN_MDS) $(SD_HTMLS) $(SD_PDFS) $(SD_EPUBS) $(CD_MDS)
   fi
 
 $(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.adoc
-	@echo ""
+	@echo "\ngenerate markdown"
 	export DATE=$(DATE) ;\
 	export PRJ=$(PRJ) ;\
 	export TAG=$(TAG) ;\
@@ -72,29 +77,37 @@ $(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.adoc
 	export URL_HTML=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).html ;\
 	export URL_PDF=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).pdf ;\
 	export URL_EPUB=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).epub ;\
-	export PATH_HTML=$(STATIC_DIR)$(basename $(notdir $@)).html ;\
+	export PATH_HTML=$(STATIC_DIR)$(basename $(notdir $@)).embed.html ;\
 	envsubst < ./template.md > $@
+
+$(WEBSITE_DIR)%.embed.html: $(WEBSITE_DIR)%.adoc
+	@echo "\nadoc→embed html"
+	asciidoctor $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+	# --attribute=stylesheet="" --attribute=linkcss -o $@ $<
+
+$(WEBSITE_DIR)%.html: $(WEBSITE_DIR)%.adoc
+	@echo "\nadoc→html"
+	asciidoctor $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+
+$(WEBSITE_DIR)%.pdf: $(WEBSITE_DIR)%.adoc
+	@echo "\nadoc→pdf"
+	asciidoctor-pdf $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+
+$(WEBSITE_DIR)%.epub: $(WEBSITE_DIR)%.adoc
+	@echo "\nadoc→epub"
+	asciidoctor-epub3 $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
 
 $(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.md
 	cp $< $@
 
-$(WEBSITE_DIR)%.html: $(WEBSITE_DIR)%.adoc
-	@echo ""
-	asciidoctor $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+$(STATIC_DIR)%.embed.html: $(WEBSITE_DIR)%.embed.html
+	cp $< $@
 
 $(STATIC_DIR)%.html: $(WEBSITE_DIR)%.html
 	cp $< $@
 
-$(WEBSITE_DIR)%.pdf: $(WEBSITE_DIR)%.adoc
-	@echo ""
-	asciidoctor-pdf $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
-
 $(STATIC_DIR)%.pdf: $(WEBSITE_DIR)%.pdf
 	cp $< $@
-
-$(WEBSITE_DIR)%.epub: $(WEBSITE_DIR)%.adoc
-	@echo ""
-	asciidoctor-epub3 $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
 
 $(STATIC_DIR)%.epub: $(WEBSITE_DIR)%.epub
 	cp $< $@
