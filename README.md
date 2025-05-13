@@ -34,3 +34,12 @@ e.g.
 
 * content/<プロジェクト名>/_index.mdを作成
 * hugo.yamlのversionsに追加
+
+decs/website/
+
+  foo/
+  foo.adoc
+
+  images/
+  foo.md
+  bar.md

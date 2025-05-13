@@ -1,6 +1,6 @@
 ---
 title: AILERON Projects
-description: A Hugo theme for creating great technical documentation sites
+description: Go framework for cloud-native enterprise systems.
 ---
 
 <div id="home-background">

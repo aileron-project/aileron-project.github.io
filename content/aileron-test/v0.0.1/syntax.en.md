@@ -1,10 +1,10 @@
 ---
-title: aileron-test
+title: "syntax"
 type: docs
 date: ""
 categories: ["aileron-test"]
-tags: ["aileron-test", "v0.0.1"]
-description: ""
+tags: ["aileron-test"]
+description: "aileron-test v0.0.1"
 ---
 
 {{% download/html %}}/aileron-test/v0.0.1/syntax.en.html{{% /download/html %}}

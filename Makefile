@@ -24,19 +24,6 @@ install-npm-packages:
 ################################################################################
 ################################################################################
 ################################################################################
-
-# TEST
-
-PRJ:=aileron-test
-TAG=v0.0.1
-
-ADOC_CMD ?= asciidoctor
-ADOC_CMD_PDF ?= asciidoctor-pdf
-ADOC_CMD_EPUB ?= asciidoctor-epub3
-ADOC_TARGET ?= $(shell find ./docs/ -maxdepth 2 -mindepth 2 -type f -name '*.adoc' 2>/dev/null)
-ADOC_TARGET ?= 'docs/*/*.adoc'
-ADOC_OPTION ?=
-
 # :experimental:
 # :icons: font
 # :reproducible:
@@ -49,6 +36,29 @@ ADOC_OPTION ?=
 # :company: MyCompany
 # :doctype: book
 
+
+PRJ:=aileron-test
+TAG=v0.0.1
+DATE=$(shell git for-each-ref --format="%(taggerdate:short)" refs/tags/$(TAG))
+STATIC_DIR := static/$(PRJ)/$(TAG)/
+CONTENT_DIR := content/$(PRJ)/$(TAG)/
+WEBSITE_DIR := $(PRJ)/docs/website/
+
+WD_MDS := $(shell find $(WEBSITE_DIR) -maxdepth 1 -type f -name '*.md' 2>/dev/null)
+CD_MDS := $(patsubst $(WEBSITE_DIR)%,$(CONTENT_DIR)%,$(WD_MDS))
+
+WD_ADOCS := $(shell find $(WEBSITE_DIR) -maxdepth 1 -type f -name '*.adoc' 2>/dev/null)
+WD_HTMLS := $(WD_ADOCS:.adoc=.html)
+WD_PDFS := $(WD_ADOCS:.adoc=.pdf)
+WD_EPUBS := $(WD_ADOCS:.adoc=.epub)
+SD_ADOCS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_ADOCS))
+SD_HTMLS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_HTMLS))
+SD_PDFS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_PDFS))
+SD_EPUBS := $(patsubst $(WEBSITE_DIR)%,$(STATIC_DIR)%,$(WD_EPUBS))
+CD_ADOCS := $(patsubst $(WEBSITE_DIR)%,$(CONTENT_DIR)%,$(WD_ADOCS))
+CD_GEN_MDS := $(CD_ADOCS:.adoc=.md)
+
+ADOC_OPTION ?=
 ADOC_ATTRS += experimental reproducible data-uri stem=asciimath toc=none sectnums doctype=book source-highlighter=highlightjs
 ADOC_ATTRS += imagesoutdir=_output/tmp/
 ADOC_ATTRS += cachedir=_output/.asciidoctor/
@@ -60,61 +70,55 @@ ADOC_ATTRS := $(addprefix --attribute=,$(ADOC_ATTRS))
 ADOC_REQS ?= asciidoctor-diagram asciidoctor-lists asciidoctor-mathematical
 ADOC_REQS := $(addprefix --require=,$(ADOC_REQS))
 
-.PHONY: asciidoc-html
-asciidoc-html:
-	$(ADOC_CMD) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) $(ADOC_TARGET)
+.PHONY: init
+init:
+	mkdir -p $(CONTENT_DIR)
+	mkdir -p $(STATIC_DIR)
 
-.PHONY: asciidoc-pdf
-asciidoc-pdf:
-	$(ADOC_CMD_PDF) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) $(ADOC_TARGET)
+.PHONY: clear
+clear:
+	rm -rf $(CONTENT_DIR)
+	rm -rf $(STATIC_DIR)
 
-.PHONY: asciidoc-epub
-asciidoc-epub:
-	$(ADOC_CMD_EPUB) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) $(ADOC_TARGET)
+.PHONY: build
+build: init $(CD_GEN_MDS) $(SD_HTMLS) $(SD_PDFS) $(SD_EPUBS) $(CD_MDS)
+	rm -rf $(STATIC_DIR)images $(CONTENT_DIR)_index.*.md
+	test -e $(WEBSITE_DIR)images && cp -r $(WEBSITE_DIR)images $(STATIC_DIR)images
+	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.en.md
+	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.ja.md
 
-# FILES=$(shell find ./docs/adoc/ -maxdepth 2 -mindepth 2 -type f -name '*.adoc' 2>/dev/null)
-FILES_ADOC:=$(shell ls ./docs/adoc/*.adoc 2>/dev/null)
-FILES_PLAIN:=$(subst ./docs/adoc/,,$(basename $(FILES_ADOC)))
-FILES_HTML:=$(addsuffix .html, $(addprefix ./static/$(PRJ)/$(TAG)/,$(FILES_PLAIN)))
-FILES_PDF:=$(addsuffix .pdf, $(addprefix ./static/$(PRJ)/$(TAG)/,$(FILES_PLAIN)))
-FILES_EPUB:=$(addsuffix .epub, $(addprefix ./static/$(PRJ)/$(TAG)/,$(FILES_PLAIN)))
-
-FILES:=$(basename $(FILES))
-FILES:=$(subst ./docs/adoc/,,$(FILES))
-
-.PHONY: test
-test: $(FILES_PLAIN)
-	# $(FILES_ADOC)
-	# $(FILES_PLAIN)
-	# $(FILES_HTML)
-	# $(FILES_PDF)
-	# $(FILES_EPUB)
-	# $(FILES)
-	@for target in $(FILES); do \
-	echo ""; \
-	echo "INFO: processing $$target"; \
-	OUT=$(subst ./docs/adoc/,./static/$(PRJ)/$(TAG)/,$$target); \
-	MD=$$target.md; \
-	PDF=$$OUT.pdf; \
-	EPUB=$$OUT.epub; \
-	HTML=$$OUT.html; \
-	echo $$MD $$PDF $$HTML $$EPUB; \
-	done
-
-.PHONY: $(FILES_PLAIN)
-$(FILES_PLAIN):
-	$(ADOC_CMD) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o ./static/$(PRJ)/$(TAG)/$@.html ./docs/adoc/$@.adoc
-	$(ADOC_CMD_PDF) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o ./static/$(PRJ)/$(TAG)/$@.pdf ./docs/adoc/$@.adoc
-	$(ADOC_CMD_EPUB) $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o ./static/$(PRJ)/$(TAG)/$@.epub ./docs/adoc/$@.adoc
-	mkdir -p ./content/$(PRJ)/$(TAG)/
-	export DATE=$(shell git for-each-ref --format="%(taggerdate:short)" refs/tags/$(TAG)) ;\
+$(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.adoc
+	@echo ""
+	export DATE=$(DATE) ;\
 	export PRJ=$(PRJ) ;\
 	export TAG=$(TAG) ;\
-	export STATUS=$(STATUS) ;\
-	export URL_HTML=/$(PRJ)/$(TAG)/$@.html ;\
-	export URL_PDF=/$(PRJ)/$(TAG)/$@.pdf ;\
-	export URL_EPUB=/$(PRJ)/$(TAG)/$@.epub ;\
-	export PATH_HTML=static/$(PRJ)/$(TAG)/$@.html ;\
-	export PATH_PDF=static/$(PRJ)/$(TAG)/$@.pdf ;\
-	export PATH_EPUB=static/$(PRJ)/$(TAG)/$@.epub ;\
-	envsubst < ./template.md > ./content/$(PRJ)/$(TAG)/$@.md
+	export TITLE=$(basename $(basename $(notdir $@))) ;\
+	export URL_HTML=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).html ;\
+	export URL_PDF=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).pdf ;\
+	export URL_EPUB=/$(PRJ)/$(TAG)/$(basename $(notdir $@)).epub ;\
+	export PATH_HTML=$(STATIC_DIR)$(basename $(notdir $@)).html ;\
+	envsubst < ./template.md > $@
+
+$(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.md
+	cp $< $@
+
+$(WEBSITE_DIR)%.html: $(WEBSITE_DIR)%.adoc
+	@echo ""
+	asciidoctor $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+
+$(STATIC_DIR)%.html: $(WEBSITE_DIR)%.html
+	cp $< $@
+
+$(WEBSITE_DIR)%.pdf: $(WEBSITE_DIR)%.adoc
+	@echo ""
+	asciidoctor-pdf $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+
+$(STATIC_DIR)%.pdf: $(WEBSITE_DIR)%.pdf
+	cp $< $@
+
+$(WEBSITE_DIR)%.epub: $(WEBSITE_DIR)%.adoc
+	@echo ""
+	asciidoctor-epub3 $(ADOC_OPTION) $(ADOC_ATTRS) $(ADOC_REQS) -o $@ $<
+
+$(STATIC_DIR)%.epub: $(WEBSITE_DIR)%.epub
+	cp $< $@

@@ -1,4 +1,4 @@
 ---
-title: "main"
+title: "${}"
 type: docs
 ---

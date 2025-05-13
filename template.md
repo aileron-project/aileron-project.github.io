@@ -1,10 +1,10 @@
 ---
-title: ${PRJ}
+title: "${TITLE}"
 type: docs
 date: "${DATE}"
 categories: ["${PRJ}"]
-tags: ["${PRJ}", "${TAG}"]
-description: ""
+tags: ["${PRJ}"]
+description: "${PRJ} ${TAG}"
 ---
 
 {{% download/html %}}${URL_HTML}{{% /download/html %}}
