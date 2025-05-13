@@ -81,7 +81,10 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
       - uses: actions/download-artifact@v4
-      - run: ls -la
+      - run: |
+          ls -la
+          ls -la merged-artifacts
+          mv merged-artifacts/* ./
       - name: install hugo
         run: |
           wget -O hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb
