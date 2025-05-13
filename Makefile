@@ -57,9 +57,11 @@ clear:
 .PHONY: build
 build: init $(CD_GEN_MDS) $(SD_HTMLS) $(SD_PDFS) $(SD_EPUBS) $(CD_MDS)
 	rm -rf $(STATIC_DIR)images $(CONTENT_DIR)_index.*.md
-	test -e $(WEBSITE_DIR)images && cp -r $(WEBSITE_DIR)images $(STATIC_DIR)images
 	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.en.md
 	DATE=$(DATE) PRJ=$(PRJ) TAG=$(TAG) envsubst < ./template._index.md > $(CONTENT_DIR)_index.ja.md
+	@if test -e $(WEBSITE_DIR)images; then \
+  cp -r $(WEBSITE_DIR)images $(STATIC_DIR)images; \
+  fi
 
 $(CONTENT_DIR)%.md: $(WEBSITE_DIR)%.adoc
 	@echo ""
