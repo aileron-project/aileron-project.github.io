@@ -52,8 +52,8 @@ jobs:
           sudo bundle install
           npm install -g @mermaid-js/mermaid-cli
       - run: |
-          sudo chmod +x ./test.sh
-          PROJECT="${{ matrix.project }}" ./test.sh
+          sudo chmod +x ./make.sh
+          PROJECT="${{ matrix.project }}" ./make.sh
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.project }}

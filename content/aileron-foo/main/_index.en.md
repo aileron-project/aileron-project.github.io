@@ -1,7 +1,0 @@
----
-title: "${TAG}"
-type: docs
-categories: ["${PRJ}"]
-tags: ["${PRJ}", "${TAG}"]
-description: "${PRJ} ${TAG}"
----
