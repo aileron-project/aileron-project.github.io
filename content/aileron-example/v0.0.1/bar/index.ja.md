@@ -11,4 +11,6 @@ description: "aileron documentation example"
 
 This file is `website/bar/index.ja.md`.
 
-![git](github-mark.svg)
+Images can be embedded with relative path.
+
+![aileron.png](aileron.png)

@@ -10,3 +10,9 @@ description: "aileron documentation example"
 ---
 
 This file is `website/baz/alice.en.md`.
+
+Images should go in the `alice/` folder.
+
+It can be embedded with file name without folder name `alice/`.
+
+![aileron.png](aileron.png)

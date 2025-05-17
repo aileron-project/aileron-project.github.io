@@ -10,3 +10,9 @@ description: "aileron documentation example"
 ---
 
 This file is `website/baz/bob.en.md`.
+
+Images should go in the `bob/` folder.
+
+It can be embedded with file name without folder name `bob/`.
+
+![aileron.png](aileron.png)

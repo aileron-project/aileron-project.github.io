@@ -10,3 +10,7 @@ description: "aileron documentation example"
 ---
 
 This file is `website/foo/_index.en.md`.
+
+Images can be embedded with relative path.
+
+![aileron.png](aileron.png)
