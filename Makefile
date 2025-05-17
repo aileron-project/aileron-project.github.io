@@ -1,4 +1,4 @@
-PRJ ?= aileron-test
+PRJ ?= aileron-example
 TAG ?= v0.0.1
 DATE ?= 2025-05-13
 

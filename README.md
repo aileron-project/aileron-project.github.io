@@ -45,7 +45,7 @@ block-beta
 1. Add project name in [.github/workflows/gh-pages.yaml](.github/workflows/gh-pages.yaml).
    1. Project name should go in the `jobs.build.strategy.matrix`.
 1. Create project folder in [content/](content/).
-   1. Copy example folder [content/aileron-test/](content/aileron-test/) and rename it.
+   1. Copy example folder [content/aileron-example/](content/aileron-example/) and rename it.
    1. Modify the contents of copied markdowns.
 1. Add link in [hugo.yaml](hugo.yaml).
    1. Project link should go in the `params.versions`.
@@ -56,7 +56,7 @@ block-beta
 Sub-projects must have documentation structure described here.
 
 Documents must be saved in `docs/website/`.
-See the example in [aileron-test/](aileron-test/).
+See the example in [aileron-example/](aileron-example/).
 
 If documents follow this structure,
 

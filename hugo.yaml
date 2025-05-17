@@ -85,5 +85,5 @@ params:
   versions:
     - version: aileron-foo
       url: "/aileron-foo"
-    - version: aileron-test
-      url: "/aileron-test"
+    - version: aileron-example
+      url: "/aileron-example"
