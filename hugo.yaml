@@ -30,7 +30,6 @@ markup:
     parser:
       attribute:
         block: true
-        inline: true
     renderer:
       unsafe: true
   highlight:
@@ -57,15 +56,14 @@ params:
     from_year: 2025
   offlineSearch: true
   ui:
-    showLightDarkModeMenu: false
+    showLightDarkModeMenu: true
     breadcrumb_disable: false
     navbar_logo: true
     navbar_translucent_over_cover_disable: false
     sidebar_search_disable: false
     sidebar_menu_compact: true
     sidebar_menu_foldable: true
-    sidebar_cache_limit: 1000
-    ul_show: 1
+    ul_show: 5
     feedback:
       enable: true
       "yes": Glad to hear it!
