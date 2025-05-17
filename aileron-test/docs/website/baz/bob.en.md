@@ -1,0 +1,9 @@
+---
+title: "Bob"
+type: docs
+categories: ["aileron test"]
+tags: ["aileron test"]
+description: "aileron test project"
+---
+
+This file is `website/baz/bob.en.md`.
