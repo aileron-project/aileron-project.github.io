@@ -3,9 +3,8 @@ title: Community
 linkTitle: Community
 identifier: Community
 type: docs
-categories: []
-tags: []
-description: ""
+categories: ["community"]
+tags: ["community"]
 menu:
   main:
     weight: 20

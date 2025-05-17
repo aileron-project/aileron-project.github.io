@@ -3,9 +3,8 @@ title: Documents
 linkTitle: Documents
 identifier: Documents
 type: docs
-categories: []
-tags: []
-description: ""
+categories: ["docs"]
+tags: ["docs"]
 menu:
   main:
     weight: 10
