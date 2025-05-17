@@ -47,5 +47,8 @@ for target in "${TARGETS[@]}"; do
   PRJ="${PROJECT}"
   TAG="${target}"
   DATE=$(cd "${PROJECT}" && git for-each-ref --format="%(taggerdate:short)" refs/tags/"${target}")
+  if [ -z "${DATE}" ]; then
+    DATE=$(cd "${PROJECT}" && git for-each-ref --format="%(creatordate:short)" refs/tags/"${target}")
+  fi
   make build PRJ="${PRJ}" TAG="${TAG}" DATE="${DATE}"
 done
