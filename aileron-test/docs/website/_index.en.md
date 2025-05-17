@@ -1,7 +1,8 @@
 ---
-title: "aileron test"
+title: "${TAG}"
 type: docs
-categories: ["aileron test"]
-tags: ["aileron test"]
+date: "${DATE}"
+categories: ["${PRJ}"]
+tags: ["${TAG}"]
 description: "aileron test project"
 ---
