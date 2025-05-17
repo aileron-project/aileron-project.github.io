@@ -83,7 +83,7 @@ params:
         desc: Practical questions and curated answers.
   version_menu: Projects
   versions:
-    - version: aileron-foo
-      url: "/aileron-foo"
+    # - version: aileron-foo
+    #   url: "/aileron-foo"
     - version: aileron-example
       url: "/aileron-example"
