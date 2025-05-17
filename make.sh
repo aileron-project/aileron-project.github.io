@@ -2,7 +2,6 @@
 
 # Input variables.
 # PROJECT="aileron-test"
-# PATTERNS=()
 
 # Initialize.
 git clone "https://github.com/aileron-project/${PROJECT}.git"
@@ -22,13 +21,6 @@ while read -r line; do
     echo "TARGET: ${line}"
     TARGETS+=("${line}")
   fi
-  for pattern in "${PATTERNS[@]}"; do
-    echo "${line}" "<>" "${pattern}"
-    if [[ "${line}" =~ ${pattern} ]]; then
-      echo "TARGET: ${line}"
-      TARGETS+=("${line}")
-    fi
-  done
 done < <(echo "${TAGS}")
 
 # Show target tags.
@@ -36,7 +28,7 @@ echo "TARGETS: ${TARGETS[*]}"
 
 # Generate documents from HEAD.
 PRJ="${PROJECT}"
-TAG="main"
+TAG=$(git branch --show-current)
 DATE=$(cd "${PROJECT}" && git log -1 --format=%cd --date=format:"%Y-%m-%d")
 make build PRJ="${PRJ}" TAG="${TAG}" DATE="${DATE}"
 
