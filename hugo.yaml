@@ -25,10 +25,12 @@ languages:
     weight: 2
 
 markup:
+  enableInlineShortcodes: true
   goldmark:
     parser:
       attribute:
         block: true
+        inline: true
     renderer:
       unsafe: true
   highlight:

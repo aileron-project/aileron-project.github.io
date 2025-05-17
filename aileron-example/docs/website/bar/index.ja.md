@@ -11,6 +11,12 @@ description: "aileron documentation example"
 
 This file is `website/bar/index.ja.md`.
 
+Tag is `{{< tag >}}`.
+
+Prj is `{{< prj >}}`.
+
+Date is `{{< date >}}`.
+
 Images can be embedded with relative path.
 
 ![aileron.png](aileron.png)
